@@ -19,13 +19,27 @@ const ValidateEmail = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    
-    Swal.fire({
-      icon: email.match(validRegEx) ? "success" : "error",
-      title: email.match(validRegEx) ? "It's a valid email" : "It's an invalid email",
-      showConfirmButton: false,
-      timer: 1500
-    })
+
+    if(email.match(validRegEx)) {
+      fetch(`https://api.hunter.io/v2/email-verifier?email=${email}&api_key=${process.env.REACT_APP_API_KEY}`)
+      .then(res => res.json())
+      .then(res => {
+
+        Swal.fire({
+          icon: res.data.status !== "invalid" ? "success" : "error",
+          title: res.data.status !== "invalid" ? "It's a valid email" : "It's an invalid email",
+          showConfirmButton: false,
+          timer: 1500
+        })
+      })
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "It's an invalid email",
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }  
   };
 
   return (
