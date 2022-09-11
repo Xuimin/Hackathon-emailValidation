@@ -14,8 +14,7 @@ function App() {
         <p>
           Afraid of receiving malicious emails from suspicious senders?
           <br />
-          Fret not! With just a click, the email will either be authentic or a
-          fake.
+          Fret not! With just a click, you will know if the email is real or not.
         </p>
       </div>
       <div className="container">
